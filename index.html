@@ -21,7 +21,18 @@
   </head>
   <body>
     <div id="root"></div>
-    <script type="text/babel">
+    <If you're creating something else in parallel, keep in mind that the environment initialization for this bot still depends on fetching all configured RSS feeds sequentially via the CORS proxy.
+
+Estimated initialization time for this bot:
+- **Fast case** (all feeds respond quickly): ~3–4 seconds.
+- **Average case** (some moderate delays): ~5–6 seconds.
+- **Slow case** (one or more feeds lag or time out): 8–10+ seconds.
+
+If parallel work in your environment is also consuming network or compute resources, you might experience slightly higher times. To optimize:
+- Switch to `Promise.all` to fetch feeds in parallel.
+- Use timeouts to skip slow feeds.
+- Prioritize critical feeds first, then load others asynchronously after the UI is ready.
+>
       function App() {
         return (
           <div className="wrap">
